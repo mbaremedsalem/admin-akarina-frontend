@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
+  Ban,
   Building2,
   Gift,
   LogOut,
@@ -35,6 +36,7 @@ function useNavSections(t) {
       title: t("nav.sectionBiens"),
       links: [
         { to: "/biens", label: t("nav.biens"), icon: Building2 },
+        { to: "/biens-inactifs", label: t("nav.biensInactifs"), icon: Ban },
         { to: "/equipements", label: t("nav.equipements"), icon: Sofa },
         { to: "/indisponibilites", label: t("nav.indisponibilites"), icon: Receipt },
       ],

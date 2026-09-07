@@ -7,6 +7,7 @@ import VillesPage from "./pages/VillesPage";
 import QuartiersPage from "./pages/QuartiersPage";
 import EquipementsPage from "./pages/EquipementsPage";
 import BiensPage from "./pages/BiensPage";
+import BiensInactifsPage from "./pages/BiensInactifsPage";
 import BienMediasPage from "./pages/BienMediasPage";
 import IndisponibilitesPage from "./pages/IndisponibilitesPage";
 import TransactionsPage from "./pages/TransactionsPage";
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="quartiers" element={<QuartiersPage />} />
         <Route path="equipements" element={<EquipementsPage />} />
         <Route path="biens" element={<BiensPage />} />
+        <Route path="biens-inactifs" element={<BiensInactifsPage />} />
         <Route path="biens/:bienId/medias" element={<BienMediasPage />} />
         <Route path="indisponibilites" element={<IndisponibilitesPage />} />
         <Route path="transactions" element={<TransactionsPage />} />

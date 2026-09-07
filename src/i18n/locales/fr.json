@@ -37,6 +37,7 @@
     "villes": "Villes",
     "quartiers": "Quartiers",
     "biens": "Biens immobiliers",
+    "biensInactifs": "Biens inactifs",
     "equipements": "Equipements",
     "indisponibilites": "Calendrier / indisponibilites",
     "transactions": "Transactions",
@@ -277,7 +278,9 @@
     "newBien": "Nouveau bien",
     "editBien": "Modifier {{reference}}",
     "confirmDeleteBien": "Supprimer definitivement le bien {{reference}} ?",
-    "empty": "Aucun bien."
+    "empty": "Aucun bien.",
+    "titleInactifs": "Biens inactifs",
+    "emptyInactifs": "Aucun bien inactif."
   },
   "bienForm": {
     "typeVente": "Vente",

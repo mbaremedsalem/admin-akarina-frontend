@@ -37,6 +37,7 @@
     "villes": "المدن",
     "quartiers": "الأحياء",
     "biens": "العقارات",
+    "biensInactifs": "العقارات غير النشطة",
     "equipements": "التجهيزات",
     "indisponibilites": "التقويم / فترات عدم التوفر",
     "transactions": "المعاملات",
@@ -277,7 +278,9 @@
     "newBien": "عقار جديد",
     "editBien": "تعديل {{reference}}",
     "confirmDeleteBien": "هل تريد حذف العقار {{reference}} نهائيًا؟",
-    "empty": "لا توجد عقارات."
+    "empty": "لا توجد عقارات.",
+    "titleInactifs": "العقارات غير النشطة",
+    "emptyInactifs": "لا توجد عقارات غير نشطة."
   },
   "bienForm": {
     "typeVente": "بيع",
