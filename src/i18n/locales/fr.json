@@ -268,6 +268,8 @@
     "colPrice": "Prix",
     "colVille": "Ville",
     "colActive": "Actif",
+    "colVendu": "Vendu",
+    "vendu": "Vendu",
     "typeCeremonie": "Ceremonie",
     "typeDuplexe": "Duplexe",
     "typeAppartement": "Appartement",
@@ -309,6 +311,7 @@
     "noneOption": "-- aucun --",
     "fieldAdresse": "Adresse complete",
     "fieldAdresseAr": "Adresse complete (arabe)",
+    "mapPickHelp": "Cliquez sur la carte (ou glissez le repere) pour definir la position exacte du bien.",
     "fieldLatitude": "Latitude",
     "fieldLongitude": "Longitude",
     "fieldNbProprietaires": "Nombre de proprietaires",
@@ -324,7 +327,9 @@
     "largeur": "Largeur (m)",
     "titreFoncier": "Titre foncier",
     "borne": "Terrain borne",
-    "fieldActif": "Actif (visible sur la vitrine)"
+    "fieldActif": "Actif (visible sur la vitrine)",
+    "fieldVendu": "Vendu",
+    "fieldVenduHelp": "Coche automatiquement quand une transaction de vente est confirmee. Affiche 'Deja vendu' sur le site public."
   },
   "medias": {
     "titleWithBien": "Medias",

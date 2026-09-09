@@ -139,6 +139,7 @@ export default function BiensPage() {
                 <th>{t("biens.colPrice")}</th>
                 <th>{t("biens.colVille")}</th>
                 <th>{t("biens.colActive")}</th>
+                <th>{t("biens.colVendu")}</th>
                 <th className="actions-col">{t("common.actions")}</th>
               </tr>
             </thead>
@@ -172,6 +173,16 @@ export default function BiensPage() {
                       {row.actif ? <Check className="icon-sm" /> : <X className="icon-sm" />}
                       {row.actif ? t("common.yes") : t("common.no")}
                     </span>
+                  </td>
+                  <td>
+                    {row.vendu ? (
+                      <span className="badge badge-danger">
+                        <Check className="icon-sm" />
+                        {t("biens.vendu")}
+                      </span>
+                    ) : (
+                      <span className="muted">-</span>
+                    )}
                   </td>
                   <td className="actions-col">
                     <div className="row-actions">

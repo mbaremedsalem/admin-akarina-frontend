@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import {
   AlertCircle,
   ArrowLeftRight,
+  BadgeCheck,
   Bath,
   BedDouble,
   Building2,
@@ -22,6 +23,7 @@ import {
   Waypoints,
   Wallet,
 } from "lucide-react";
+import LocationPicker from "../components/LocationPicker";
 
 function typeBienOptions(t) {
   return [
@@ -76,6 +78,7 @@ function emptyState() {
     detail_ceremonie: { avec_service: false, description_service: "", description_service_ar: "", capacite_personnes: "" },
     detail_terrain: { superficie_m2: "", longueur_m: "", largeur_m: "", titre_foncier: "", borne: false },
     actif: true,
+    vendu: false,
   };
 }
 
@@ -115,6 +118,7 @@ export function stateFromBien(bien) {
       borne: Boolean(bien.detail_terrain?.borne),
     },
     actif: bien.actif ?? true,
+    vendu: Boolean(bien.vendu),
   };
 }
 
@@ -141,6 +145,7 @@ export function buildBienPayload(values) {
     nb_proprietaires: values.nb_proprietaires === "" ? 1 : Number(values.nb_proprietaires),
     equipements_ids: (values.equipements_ids || []).map(Number),
     actif: Boolean(values.actif),
+    vendu: Boolean(values.vendu),
   };
 
   if (values.type_bien === "ceremonie") {
@@ -445,6 +450,12 @@ export default function BienForm({ initial, villes, quartiers, equipements, onSu
         <small className="field-help">{t("bienForm.fieldArHelp")}</small>
       </label>
 
+      <LocationPicker
+        latitude={values.latitude}
+        longitude={values.longitude}
+        onChange={(lat, lng) => setValues((prev) => ({ ...prev, latitude: lat, longitude: lng }))}
+      />
+
       <div className="field-row">
         <label className="field">
           <span>{t("bienForm.fieldLatitude")} *</span>
@@ -605,6 +616,17 @@ export default function BienForm({ initial, villes, quartiers, equipements, onSu
           {t("bienForm.fieldActif")}
         </span>
       </label>
+
+      <label className="field field-inline">
+        <input type="checkbox" checked={values.vendu} onChange={(e) => set("vendu", e.target.checked)} />
+        <span>
+          <BadgeCheck className="icon-sm bien-inline-icon" />
+          {t("bienForm.fieldVendu")}
+        </span>
+      </label>
+      <small className="field-help" style={{ marginTop: "-0.6rem", marginBottom: "0.9rem", display: "block" }}>
+        {t("bienForm.fieldVenduHelp")}
+      </small>
 
       <div className="form-actions">
         <button type="button" className="btn btn-ghost" onClick={onCancel}>

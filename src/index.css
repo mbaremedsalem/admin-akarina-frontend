@@ -759,6 +759,11 @@ tbody tr:last-child td {
   color: var(--text-muted);
 }
 
+.badge-danger {
+  background: var(--danger-light);
+  color: var(--danger-text);
+}
+
 .statut-en_attente {
   background: var(--warning-light);
   color: var(--warning-text);
@@ -904,6 +909,39 @@ tbody tr:last-child td {
   padding: 1rem;
   margin-bottom: 1rem;
   background: var(--surface-alt);
+}
+
+.location-picker-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background: var(--surface-alt);
+}
+
+.location-picker-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  color: var(--muted, #6b7280);
+  border-bottom: 1px solid var(--border);
+}
+
+.location-picker-map {
+  position: relative;
+}
+
+.map-marker {
+  width: 34px;
+  height: 34px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--primary);
+  border: 2px solid #fff;
+  box-shadow: var(--shadow-sm);
+  transform: rotate(-45deg);
+  cursor: grab;
 }
 
 .fieldset legend {

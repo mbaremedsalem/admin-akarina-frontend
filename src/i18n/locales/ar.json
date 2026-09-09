@@ -268,6 +268,8 @@
     "colPrice": "السعر",
     "colVille": "المدينة",
     "colActive": "نشط",
+    "colVendu": "مباع",
+    "vendu": "مباع",
     "typeCeremonie": "قاعة أفراح",
     "typeDuplexe": "دوبلكس",
     "typeAppartement": "شقة",
@@ -309,6 +311,7 @@
     "noneOption": "-- بدون --",
     "fieldAdresse": "العنوان الكامل",
     "fieldAdresseAr": "العنوان الكامل (بالعربية)",
+    "mapPickHelp": "انقر على الخريطة (أو اسحب العلامة) لتحديد الموقع الدقيق للعقار.",
     "fieldLatitude": "خط العرض",
     "fieldLongitude": "خط الطول",
     "fieldNbProprietaires": "عدد الملاك",
@@ -324,7 +327,9 @@
     "largeur": "العرض (م)",
     "titreFoncier": "السند العقاري",
     "borne": "أرض محددة الحدود",
-    "fieldActif": "نشط (ظاهر في الواجهة)"
+    "fieldActif": "نشط (ظاهر في الواجهة)",
+    "fieldVendu": "مباع",
+    "fieldVenduHelp": "يتم تفعيله تلقائيًا عند تأكيد عملية بيع. يعرض 'تم البيع بالفعل' على الموقع العام."
   },
   "medias": {
     "titleWithBien": "الوسائط",
