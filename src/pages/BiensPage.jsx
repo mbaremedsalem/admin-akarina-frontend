@@ -26,6 +26,7 @@ export default function BiensPage() {
   const { items: villes } = useResource("/villes/");
   const { items: quartiers } = useResource("/quartiers/");
   const { items: equipements } = useResource("/equipements/");
+  const { items: utilisateurs } = useResource("/utilisateurs/");
 
   const TYPE_BIEN_LABEL = {
     ceremonie: t("biens.typeCeremonie"),
@@ -225,6 +226,7 @@ export default function BiensPage() {
             villes={villes}
             quartiers={quartiers}
             equipements={equipements}
+            utilisateurs={utilisateurs}
             onSubmit={handleSubmit}
             onCancel={() => setModal(null)}
           />

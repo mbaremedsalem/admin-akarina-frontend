@@ -75,6 +75,7 @@ function emptyState() {
     longitude: "",
     nb_proprietaires: 1,
     equipements_ids: [],
+    gestionnaires_ids: [],
     detail_ceremonie: { avec_service: false, description_service: "", description_service_ar: "", capacite_personnes: "" },
     detail_terrain: { superficie_m2: "", longueur_m: "", largeur_m: "", titre_foncier: "", borne: false },
     actif: true,
@@ -104,6 +105,7 @@ export function stateFromBien(bien) {
     longitude: bien.longitude ?? "",
     nb_proprietaires: bien.nb_proprietaires ?? 1,
     equipements_ids: (bien.equipements || []).map((e) => String(e.id)),
+    gestionnaires_ids: (bien.gestionnaires || []).map((g) => String(g.id)),
     detail_ceremonie: {
       avec_service: Boolean(bien.detail_ceremonie?.avec_service),
       description_service: bien.detail_ceremonie?.description_service ?? "",
@@ -144,6 +146,7 @@ export function buildBienPayload(values) {
     longitude: values.longitude === "" ? null : Number(values.longitude),
     nb_proprietaires: values.nb_proprietaires === "" ? 1 : Number(values.nb_proprietaires),
     equipements_ids: (values.equipements_ids || []).map(Number),
+    gestionnaires_ids: (values.gestionnaires_ids || []).map(Number),
     actif: Boolean(values.actif),
     vendu: Boolean(values.vendu),
   };
@@ -192,7 +195,7 @@ function IconSelect({ icon: Icon, children, ...props }) {
   );
 }
 
-export default function BienForm({ initial, villes, quartiers, equipements, onSubmit, onCancel }) {
+export default function BienForm({ initial, villes, quartiers, equipements, utilisateurs, onSubmit, onCancel }) {
   const { t } = useTranslation();
   const [values, setValues] = useState(() => initial || emptyState());
   const [error, setError] = useState(null);
@@ -207,6 +210,10 @@ export default function BienForm({ initial, villes, quartiers, equipements, onSu
     [quartiers, values.ville]
   );
   const uniteOptions = UNITE_PRIX_BY_TRANSACTION[values.type_transaction] || [];
+  const gestionnaireOptions = useMemo(
+    () => (utilisateurs || []).filter((u) => u.est_gestionnaire || u.is_staff),
+    [utilisateurs]
+  );
 
   function set(key, value) {
     setValues((prev) => ({ ...prev, [key]: value }));
@@ -237,6 +244,19 @@ export default function BienForm({ initial, villes, quartiers, equipements, onSu
         equipements_ids: has
           ? prev.equipements_ids.filter((e) => e !== idStr)
           : [...prev.equipements_ids, idStr],
+      };
+    });
+  }
+
+  function toggleGestionnaire(id) {
+    setValues((prev) => {
+      const idStr = String(id);
+      const has = prev.gestionnaires_ids.includes(idStr);
+      return {
+        ...prev,
+        gestionnaires_ids: has
+          ? prev.gestionnaires_ids.filter((g) => g !== idStr)
+          : [...prev.gestionnaires_ids, idStr],
       };
     });
   }
@@ -505,6 +525,30 @@ export default function BienForm({ initial, villes, quartiers, equipements, onSu
             </label>
           ))}
         </div>
+      </div>
+
+      <div className="field">
+        <span>{t("bienForm.fieldGestionnaires")}</span>
+        {gestionnaireOptions.length === 0 ? (
+          <small className="field-help">{t("bienForm.fieldGestionnairesEmpty")}</small>
+        ) : (
+          <div className="checkbox-grid">
+            {gestionnaireOptions.map((u) => {
+              const nom = [u.first_name, u.last_name].filter(Boolean).join(" ") || u.username;
+              return (
+                <label key={u.id} className="field-inline checkbox-chip">
+                  <input
+                    type="checkbox"
+                    checked={values.gestionnaires_ids.includes(String(u.id))}
+                    onChange={() => toggleGestionnaire(u.id)}
+                  />
+                  <span>{nom}</span>
+                </label>
+              );
+            })}
+          </div>
+        )}
+        <small className="field-help">{t("bienForm.fieldGestionnairesHelp")}</small>
       </div>
 
       {values.type_bien === "ceremonie" && (
