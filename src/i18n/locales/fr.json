@@ -200,6 +200,7 @@
     "typeLocation": "Location",
     "colReference": "Reference",
     "colBien": "Bien",
+    "colClient": "Client",
     "colType": "Type",
     "colAmount": "Montant",
     "colStatus": "Statut",
@@ -247,6 +248,7 @@
   },
   "echanges": {
     "title": "Echanges de cadeaux",
+    "colReference": "Reference",
     "colUser": "Utilisateur",
     "colCadeau": "Cadeau",
     "colPointsUsed": "Points utilises",
@@ -255,8 +257,9 @@
     "statutEnAttente": "En attente",
     "statutValide": "Valide",
     "statutRefuse": "Refuse",
+    "statutReceptionne": "Receptionne",
     "empty": "Aucun echange.",
-    "note": "Lecture seule : les echanges sont crees par les utilisateurs eux-memes contre leurs points."
+    "note": "Les echanges sont crees par les utilisateurs eux-memes contre leurs points. L'admin peut ensuite valider ou refuser chaque echange (un refus rembourse automatiquement les points et remet le cadeau en stock)."
   },
   "biens": {
     "title": "Biens immobiliers",

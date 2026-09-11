@@ -1,6 +1,6 @@
 import { useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Building2, Check, CircleSlash, Receipt, Wallet, X } from "lucide-react";
+import { Building2, Check, CircleSlash, Receipt, User, Wallet, X } from "lucide-react";
 import ResourcePage from "../components/ResourcePage";
 import { useResource } from "../api/useResource";
 import { api } from "../api/client";
@@ -41,6 +41,23 @@ export default function TransactionsPage() {
       ),
     },
     { key: "bien_reference", label: t("transactions.colBien") },
+    {
+      key: "client_nom",
+      label: t("transactions.colClient"),
+      render: (row) => (
+        <span style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+            <User className="icon-sm muted" />
+            {row.client_nom || row.client_username}
+          </span>
+          {(row.client_telephone || row.client_email) && (
+            <span className="muted" style={{ fontSize: "0.8em" }}>
+              {row.client_telephone || row.client_email}
+            </span>
+          )}
+        </span>
+      ),
+    },
     {
       key: "type_transaction",
       label: t("transactions.colType"),

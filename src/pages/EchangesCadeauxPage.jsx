@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Info, Repeat } from "lucide-react";
+import { Hash, Info, Repeat } from "lucide-react";
 import ResourcePage from "../components/ResourcePage";
 import { useResource } from "../api/useResource";
 
@@ -13,6 +13,7 @@ export default function EchangesCadeauxPage() {
     en_attente: t("echanges.statutEnAttente"),
     valide: t("echanges.statutValide"),
     refuse: t("echanges.statutRefuse"),
+    receptionne: t("echanges.statutReceptionne"),
   };
 
   const userNameById = useMemo(() => {
@@ -26,7 +27,24 @@ export default function EchangesCadeauxPage() {
     return map;
   }, [cadeaux]);
 
+  const STATUT_OPTIONS = [
+    { value: "en_attente", label: t("echanges.statutEnAttente") },
+    { value: "valide", label: t("echanges.statutValide") },
+    { value: "refuse", label: t("echanges.statutRefuse") },
+    { value: "receptionne", label: t("echanges.statutReceptionne") },
+  ];
+
   const columns = [
+    {
+      key: "reference",
+      label: t("echanges.colReference"),
+      render: (row) => (
+        <span style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontWeight: 600, fontFamily: "monospace" }}>
+          <Hash className="icon-sm muted" />
+          {row.reference}
+        </span>
+      ),
+    },
     {
       key: "utilisateur",
       label: t("echanges.colUser"),
@@ -46,6 +64,12 @@ export default function EchangesCadeauxPage() {
     },
   ];
 
+  const fields = [{ key: "statut", label: t("echanges.colStatus"), type: "select", required: true, options: STATUT_OPTIONS }];
+
+  function transformSubmit(values) {
+    return { statut: values.statut };
+  }
+
   if (usersLoading || cadeauxLoading) return <div className="page-loading">{t("common.loading")}</div>;
 
   return (
@@ -54,9 +78,10 @@ export default function EchangesCadeauxPage() {
       titleIcon={Repeat}
       endpoint="/echanges-cadeaux/"
       columns={columns}
-      fields={[]}
+      fields={fields}
+      transformSubmit={transformSubmit}
       canCreate={false}
-      canEdit={false}
+      canEdit
       canDelete={false}
       emptyMessage={t("echanges.empty")}
       emptyIcon={Repeat}

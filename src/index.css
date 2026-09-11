@@ -781,7 +781,8 @@ tbody tr:last-child td {
   color: var(--danger-text);
 }
 
-.statut-terminee {
+.statut-terminee,
+.statut-receptionne {
   background: var(--primary-light);
   color: var(--primary-text);
 }
