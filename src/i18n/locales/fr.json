@@ -259,7 +259,7 @@
     "statutRefuse": "Refuse",
     "statutReceptionne": "Receptionne",
     "empty": "Aucun echange.",
-    "note": "Les echanges sont crees par les utilisateurs eux-memes contre leurs points. L'admin peut ensuite valider ou refuser chaque echange (un refus rembourse automatiquement les points et remet le cadeau en stock)."
+    "note": "Les echanges sont crees par les utilisateurs eux-memes contre leurs points. L'admin peut ensuite valider, refuser ou supprimer chaque echange (un refus ou une suppression rembourse automatiquement les points et remet le cadeau en stock, sauf si l'echange etait deja refuse)."
   },
   "biens": {
     "title": "Biens immobiliers",

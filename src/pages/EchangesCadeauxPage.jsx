@@ -82,7 +82,7 @@ export default function EchangesCadeauxPage() {
       transformSubmit={transformSubmit}
       canCreate={false}
       canEdit
-      canDelete={false}
+      canDelete
       emptyMessage={t("echanges.empty")}
       emptyIcon={Repeat}
       toolbarExtra={
