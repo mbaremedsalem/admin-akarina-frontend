@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AlertCircle, Inbox, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { api } from "../api/client";
@@ -29,6 +29,7 @@ export default function ResourcePage({
   params,
   onReloadRef,
   searchable = true,
+  highlightId,
 }) {
   const { t } = useTranslation();
   const { items, loading, error, reload, setItems } = useResource(endpoint, params);
@@ -36,6 +37,12 @@ export default function ResourcePage({
   const [search, setSearch] = useState("");
 
   if (onReloadRef) onReloadRef.current = reload;
+
+  useEffect(() => {
+    if (!highlightId || loading) return;
+    const row = document.querySelector(`[data-row-id="${highlightId}"]`);
+    row?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [highlightId, loading, items]);
 
   const filteredItems = useMemo(() => {
     if (!search.trim()) return items;
@@ -146,7 +153,11 @@ export default function ResourcePage({
             </thead>
             <tbody>
               {filteredItems.map((row) => (
-                <tr key={row[idKey]}>
+                <tr
+                  key={row[idKey]}
+                  data-row-id={row[idKey]}
+                  className={String(row[idKey]) === String(highlightId) ? "row-highlight" : undefined}
+                >
                   {columns.map((col) => (
                     <td key={col.key}>{col.render ? col.render(row) : String(row[col.key] ?? "")}</td>
                   ))}

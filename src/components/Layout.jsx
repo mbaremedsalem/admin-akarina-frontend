@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import LanguageSwitcher from "./LanguageSwitcher";
+import NotificationBell from "./NotificationBell";
 
 function useNavSections(t) {
   return [
@@ -120,6 +121,7 @@ export default function Layout() {
             <Menu className="icon" />
           </button>
           <div className="topbar-user">
+            <NotificationBell />
             <LanguageSwitcher />
             <div className="avatar">{initial}</div>
             <span>{user?.username}</span>

@@ -26,6 +26,12 @@
     "brand": "Agharina",
     "tagline": "Espace administrateur"
   },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "Aucune nouvelle notification.",
+    "markAllRead": "Tout marquer comme lu",
+    "newTransaction": "Nouvelle transaction {{reference}}"
+  },
   "nav": {
     "sectionComptes": "Comptes",
     "sectionLocalisation": "Localisation",

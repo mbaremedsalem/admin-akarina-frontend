@@ -1,4 +1,5 @@
 import { useMemo, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Building2, Check, CircleSlash, Receipt, User, Wallet, X } from "lucide-react";
 import ResourcePage from "../components/ResourcePage";
@@ -9,6 +10,8 @@ export default function TransactionsPage() {
   const { t } = useTranslation();
   const { items: biens, loading: biensLoading } = useResource("/biens/");
   const reloadRef = useRef(null);
+  const [searchParams] = useSearchParams();
+  const highlightId = searchParams.get("highlight");
 
   const STATUT_OPTIONS = [
     { value: "en_attente", label: t("transactions.statutEnAttente") },
@@ -159,6 +162,7 @@ export default function TransactionsPage() {
       emptyMessage={t("transactions.empty")}
       emptyIcon={Receipt}
       onReloadRef={reloadRef}
+      highlightId={highlightId}
     />
   );
 }

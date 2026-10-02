@@ -26,6 +26,12 @@
     "brand": "Agharina",
     "tagline": "لوحة التحكم الإدارية"
   },
+  "notifications": {
+    "title": "الإشعارات",
+    "empty": "لا توجد إشعارات جديدة.",
+    "markAllRead": "تعليم الكل كمقروء",
+    "newTransaction": "معاملة جديدة {{reference}}"
+  },
   "nav": {
     "sectionComptes": "الحسابات",
     "sectionLocalisation": "الموقع الجغرافي",
