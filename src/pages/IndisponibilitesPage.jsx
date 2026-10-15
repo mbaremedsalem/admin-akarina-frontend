@@ -150,74 +150,81 @@ export default function IndisponibilitesPage() {
             </button>
           </div>
 
-          <div className="calendar-manager-layout">
-            <div className="detail-card">
-              <h3 style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                <CalendarOff className="icon-sm" />
-                {t("indisponibilites.calendarTitle")}
-              </h3>
-              <AvailabilityCalendar indisponibilites={bien.indisponibilites || []} />
+          {bien.unite_prix === "mois" ? (
+            <div className="empty-state">
+              <CalendarOff className="icon" />
+              {t("indisponibilites.notApplicableMois")}
             </div>
-
-            <div>
-              <div className="page-header" style={{ marginBottom: "0.75rem" }}>
-                <h3 style={{ margin: 0 }}>{t("indisponibilites.periodsTitle")}</h3>
-                <button type="button" className="btn btn-primary btn-small" onClick={() => setModal({ mode: "create" })}>
-                  <Plus className="icon-sm" />
-                  {t("indisponibilites.addPeriod")}
-                </button>
+          ) : (
+            <div className="calendar-manager-layout">
+              <div className="detail-card">
+                <h3 style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                  <CalendarOff className="icon-sm" />
+                  {t("indisponibilites.calendarTitle")}
+                </h3>
+                <AvailabilityCalendar indisponibilites={bien.indisponibilites || []} />
               </div>
 
-              {(bien.indisponibilites || []).length === 0 ? (
-                <div className="empty-state">
-                  <CalendarOff className="icon" />
-                  {t("indisponibilites.noPeriods")}
+              <div>
+                <div className="page-header" style={{ marginBottom: "0.75rem" }}>
+                  <h3 style={{ margin: 0 }}>{t("indisponibilites.periodsTitle")}</h3>
+                  <button type="button" className="btn btn-primary btn-small" onClick={() => setModal({ mode: "create" })}>
+                    <Plus className="icon-sm" />
+                    {t("indisponibilites.addPeriod")}
+                  </button>
                 </div>
-              ) : (
-                <div className="table-wrap">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>{t("indisponibilites.colStart")}</th>
-                        <th>{t("indisponibilites.colEnd")}</th>
-                        <th>{t("indisponibilites.colReason")}</th>
-                        <th className="actions-col">{t("common.actions")}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {bien.indisponibilites.map((row) => (
-                        <tr key={row.id}>
-                          <td>{row.date_debut}</td>
-                          <td>{row.date_fin}</td>
-                          <td>{row.motif || "-"}</td>
-                          <td className="actions-col">
-                            <div className="row-actions">
-                              <button
-                                className="btn btn-small"
-                                type="button"
-                                onClick={() => setModal({ mode: "edit", row })}
-                              >
-                                <Pencil className="icon-sm" />
-                                {t("common.edit")}
-                              </button>
-                              <button
-                                className="btn btn-small btn-danger"
-                                type="button"
-                                onClick={() => handleDelete(row)}
-                              >
-                                <Trash2 className="icon-sm" />
-                                {t("common.delete")}
-                              </button>
-                            </div>
-                          </td>
+
+                {(bien.indisponibilites || []).length === 0 ? (
+                  <div className="empty-state">
+                    <CalendarOff className="icon" />
+                    {t("indisponibilites.noPeriods")}
+                  </div>
+                ) : (
+                  <div className="table-wrap">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>{t("indisponibilites.colStart")}</th>
+                          <th>{t("indisponibilites.colEnd")}</th>
+                          <th>{t("indisponibilites.colReason")}</th>
+                          <th className="actions-col">{t("common.actions")}</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
+                      </thead>
+                      <tbody>
+                        {bien.indisponibilites.map((row) => (
+                          <tr key={row.id}>
+                            <td>{row.date_debut}</td>
+                            <td>{row.date_fin}</td>
+                            <td>{row.motif || "-"}</td>
+                            <td className="actions-col">
+                              <div className="row-actions">
+                                <button
+                                  className="btn btn-small"
+                                  type="button"
+                                  onClick={() => setModal({ mode: "edit", row })}
+                                >
+                                  <Pencil className="icon-sm" />
+                                  {t("common.edit")}
+                                </button>
+                                <button
+                                  className="btn btn-small btn-danger"
+                                  type="button"
+                                  onClick={() => handleDelete(row)}
+                                >
+                                  <Trash2 className="icon-sm" />
+                                  {t("common.delete")}
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
 

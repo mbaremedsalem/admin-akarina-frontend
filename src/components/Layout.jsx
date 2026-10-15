@@ -6,6 +6,7 @@ import {
   Building2,
   Gift,
   LogOut,
+  Map,
   MapPin,
   Megaphone,
   Menu,
@@ -40,6 +41,7 @@ function useNavSections(t) {
         { to: "/biens-inactifs", label: t("nav.biensInactifs"), icon: Ban },
         { to: "/equipements", label: t("nav.equipements"), icon: Sofa },
         { to: "/indisponibilites", label: t("nav.indisponibilites"), icon: Receipt },
+        { to: "/plans-quartier", label: t("nav.plansQuartier"), icon: Map },
       ],
     },
     {

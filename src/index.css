@@ -928,6 +928,21 @@ tbody tr:last-child td {
   color: var(--primary-text);
 }
 
+.statut-disponible {
+  background: var(--success-light);
+  color: var(--success-text);
+}
+
+.statut-attribue {
+  background: var(--primary-light);
+  color: var(--primary-text);
+}
+
+.statut-pas_encore_disponible {
+  background: var(--warning-light);
+  color: var(--warning-text);
+}
+
 /* ============ Forms ============ */
 .field {
   display: flex;

@@ -48,6 +48,12 @@ export default function BiensPage() {
     mois: t("bienForm.uniteMois"),
   };
 
+  const STATUT_DISPONIBILITE_LABEL = {
+    disponible: t("bienForm.statutDisponible"),
+    attribue: t("bienForm.statutAttribue"),
+    pas_encore_disponible: t("bienForm.statutPasEncoreDisponible"),
+  };
+
   const [modal, setModal] = useState(null); // { mode: 'create'|'edit', initial?, reference? }
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [search, setSearch] = useState("");
@@ -139,6 +145,7 @@ export default function BiensPage() {
                 <th>{t("biens.colTransaction")}</th>
                 <th>{t("biens.colPrice")}</th>
                 <th>{t("biens.colVille")}</th>
+                <th>{t("biens.colStatutDisponibilite")}</th>
                 <th>{t("biens.colActive")}</th>
                 <th>{t("biens.colVendu")}</th>
                 <th className="actions-col">{t("common.actions")}</th>
@@ -169,6 +176,15 @@ export default function BiensPage() {
                     <span className="muted">/ {UNITE_PRIX_LABEL[row.unite_prix] ?? row.unite_prix}</span>
                   </td>
                   <td>{row.ville?.nom}</td>
+                  <td>
+                    {row.unite_prix === "mois" ? (
+                      <span className={"badge statut-" + row.statut_disponibilite}>
+                        {STATUT_DISPONIBILITE_LABEL[row.statut_disponibilite] ?? row.statut_disponibilite}
+                      </span>
+                    ) : (
+                      <span className="muted">-</span>
+                    )}
+                  </td>
                   <td>
                     <span className={"badge " + (row.actif ? "badge-on" : "badge-off")}>
                       {row.actif ? <Check className="icon-sm" /> : <X className="icon-sm" />}

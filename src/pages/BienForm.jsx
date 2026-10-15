@@ -7,6 +7,7 @@ import {
   Bath,
   BedDouble,
   Building2,
+  CalendarCheck,
   CalendarClock,
   ChevronDown,
   Compass,
@@ -53,6 +54,14 @@ function unitePrixByTransaction(t) {
   };
 }
 
+function statutDisponibiliteOptions(t) {
+  return [
+    { value: "disponible", label: t("bienForm.statutDisponible") },
+    { value: "attribue", label: t("bienForm.statutAttribue") },
+    { value: "pas_encore_disponible", label: t("bienForm.statutPasEncoreDisponible") },
+  ];
+}
+
 function emptyState() {
   return {
     titre: "",
@@ -67,6 +76,7 @@ function emptyState() {
     nb_etages: "",
     prix: "",
     unite_prix: "mois",
+    statut_disponibilite: "disponible",
     ville: "",
     quartier: "",
     adresse_complete: "",
@@ -77,7 +87,7 @@ function emptyState() {
     equipements_ids: [],
     gestionnaires_ids: [],
     detail_ceremonie: { avec_service: false, description_service: "", description_service_ar: "", capacite_personnes: "" },
-    detail_terrain: { superficie_m2: "", longueur_m: "", largeur_m: "", titre_foncier: "", borne: false },
+    detail_terrain: { superficie_m2: "", longueur_m: "", largeur_m: "", titre_foncier: "", borne: false, moughataa: "" },
     actif: true,
     vendu: false,
   };
@@ -97,6 +107,7 @@ export function stateFromBien(bien) {
     nb_etages: bien.nb_etages ?? "",
     prix: bien.prix ?? "",
     unite_prix: bien.unite_prix ?? "forfait",
+    statut_disponibilite: bien.statut_disponibilite ?? "disponible",
     ville: bien.ville ? String(bien.ville) : "",
     quartier: bien.quartier ? String(bien.quartier) : "",
     adresse_complete: bien.adresse_complete ?? "",
@@ -118,6 +129,8 @@ export function stateFromBien(bien) {
       largeur_m: bien.detail_terrain?.largeur_m ?? "",
       titre_foncier: bien.detail_terrain?.titre_foncier ?? "",
       borne: Boolean(bien.detail_terrain?.borne),
+      moughataa: bien.detail_terrain?.moughataa ?? "",
+      numero_lot: bien.detail_terrain?.numero_lot ?? "",
     },
     actif: bien.actif ?? true,
     vendu: Boolean(bien.vendu),
@@ -138,6 +151,7 @@ export function buildBienPayload(values) {
     nb_etages: values.nb_etages === "" ? null : Number(values.nb_etages),
     prix: values.prix === "" ? null : Number(values.prix),
     unite_prix: values.unite_prix,
+    statut_disponibilite: values.statut_disponibilite,
     ville: values.ville ? Number(values.ville) : null,
     quartier: values.quartier ? Number(values.quartier) : null,
     adresse_complete: values.adresse_complete,
@@ -170,6 +184,7 @@ export function buildBienPayload(values) {
       largeur_m: values.detail_terrain.largeur_m === "" ? null : Number(values.detail_terrain.largeur_m),
       titre_foncier: values.detail_terrain.titre_foncier,
       borne: Boolean(values.detail_terrain.borne),
+      moughataa: values.detail_terrain.moughataa,
     };
   }
 
@@ -204,6 +219,7 @@ export default function BienForm({ initial, villes, quartiers, equipements, util
   const TYPE_BIEN_OPTIONS = useMemo(() => typeBienOptions(t), [t]);
   const TYPE_TRANSACTION_OPTIONS = useMemo(() => typeTransactionOptions(t), [t]);
   const UNITE_PRIX_BY_TRANSACTION = useMemo(() => unitePrixByTransaction(t), [t]);
+  const STATUT_DISPONIBILITE_OPTIONS = useMemo(() => statutDisponibiliteOptions(t), [t]);
 
   const quartierOptions = useMemo(
     () => quartiers.filter((q) => String(q.ville) === String(values.ville)),
@@ -385,6 +401,24 @@ export default function BienForm({ initial, villes, quartiers, equipements, util
           </IconSelect>
         </label>
       </div>
+
+      {values.unite_prix === "mois" && (
+        <label className="field">
+          <span>{t("bienForm.fieldStatutDisponibilite")} *</span>
+          <IconSelect
+            icon={CalendarCheck}
+            value={values.statut_disponibilite}
+            onChange={(e) => set("statut_disponibilite", e.target.value)}
+            required
+          >
+            {STATUT_DISPONIBILITE_OPTIONS.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
+            ))}
+          </IconSelect>
+        </label>
+      )}
 
       <label className="field field-inline">
         <input type="checkbox" checked={values.meuble} onChange={(e) => set("meuble", e.target.checked)} />
@@ -642,6 +676,19 @@ export default function BienForm({ initial, villes, quartiers, equipements, util
               onChange={(e) => setDetail("detail_terrain", "titre_foncier", e.target.value)}
             />
           </label>
+          <label className="field">
+            <span>{t("bienForm.moughataa")}</span>
+            <IconInput
+              icon={MapPin}
+              value={values.detail_terrain.moughataa}
+              onChange={(e) => setDetail("detail_terrain", "moughataa", e.target.value)}
+            />
+          </label>
+          <p className="muted" style={{ fontSize: "0.85rem", marginBottom: "0.75rem" }}>
+            {values.detail_terrain.numero_lot
+              ? t("bienForm.terrainLotInfo", { numero: values.detail_terrain.numero_lot })
+              : t("bienForm.terrainLotNone")}
+          </p>
           <label className="field field-inline">
             <input
               type="checkbox"

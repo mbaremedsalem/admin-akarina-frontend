@@ -10,6 +10,8 @@ import BiensPage from "./pages/BiensPage";
 import BiensInactifsPage from "./pages/BiensInactifsPage";
 import BienMediasPage from "./pages/BienMediasPage";
 import IndisponibilitesPage from "./pages/IndisponibilitesPage";
+import PlansQuartierPage from "./pages/PlansQuartierPage";
+import PlanEditorPage from "./pages/PlanEditorPage";
 import TransactionsPage from "./pages/TransactionsPage";
 import CadeauxPage from "./pages/CadeauxPage";
 import EchangesCadeauxPage from "./pages/EchangesCadeauxPage";
@@ -36,6 +38,8 @@ export default function App() {
         <Route path="biens-inactifs" element={<BiensInactifsPage />} />
         <Route path="biens/:bienId/medias" element={<BienMediasPage />} />
         <Route path="indisponibilites" element={<IndisponibilitesPage />} />
+        <Route path="plans-quartier" element={<PlansQuartierPage />} />
+        <Route path="plans-quartier/:planId/editer" element={<PlanEditorPage />} />
         <Route path="transactions" element={<TransactionsPage />} />
         <Route path="cadeaux" element={<CadeauxPage />} />
         <Route path="echanges-cadeaux" element={<EchangesCadeauxPage />} />
