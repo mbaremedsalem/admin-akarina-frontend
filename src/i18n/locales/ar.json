@@ -287,6 +287,7 @@
     "fieldLargeur": "العرض (م)",
     "fieldMoughataa": "المقاطعة",
     "fieldAdresse": "العنوان (الموقع)",
+    "fieldGestionnaire": "المسؤول(ون)",
     "titrePlaceholder": "قطعة أرض رقم {{numero}}",
     "optionalFieldsHelp": "الحقول أدناه اختيارية: يمكنك إكمالها لاحقًا من صفحة العقارات. العقار نشط منذ إنشائه.",
     "fieldTitreFoncier": "السند العقاري",

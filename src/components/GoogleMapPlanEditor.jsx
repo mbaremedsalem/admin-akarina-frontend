@@ -669,6 +669,8 @@ function PendingLotForm({ onConfirm, onCancel, onIgnore, quartierId, initialNume
   const [query, setQuery] = useState("");
   const [bienReference, setBienReference] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [gestionnaires, setGestionnaires] = useState([]);
+  const [gestionnaireIds, setGestionnaireIds] = useState([]);
   const [nouveauBien, setNouveauBien] = useState({
     titre: "",
     prix: "",
@@ -710,20 +712,48 @@ function PendingLotForm({ onConfirm, onCancel, onIgnore, quartierId, initialNume
     setSuggestions([]);
   }
 
+  // Gerants disponibles pour le nouveau bien - meme filtre que BienForm.jsx
+  // (est_gestionnaire ou staff), charge une seule fois.
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .list("/utilisateurs/")
+      .then((utilisateurs) => {
+        if (cancelled) return;
+        setGestionnaires((utilisateurs || []).filter((u) => u.est_gestionnaire || u.is_staff));
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  function nomGestionnaire(u) {
+    return [u.first_name, u.last_name].filter(Boolean).join(" ") || u.username;
+  }
+
+  function toggleGestionnaire(id) {
+    const idStr = String(id);
+    setGestionnaireIds((prev) =>
+      prev.includes(idStr) ? prev.filter((g) => g !== idStr) : [...prev, idStr]
+    );
+  }
+
   function setNouveauBienField(champ, valeur) {
     setNouveauBien((prev) => ({ ...prev, [champ]: valeur }));
   }
 
   // Champs obligatoires pour creer/rattacher un terrain depuis le plan :
   // moughataa, adresse (emplacement), surface, longueur, largeur, numero
-  // (numero deja impose plus haut). Titre/prix restent modifiables mais
-  // optionnels ici - voir handleConfirm pour leur valeur par defaut.
+  // (numero deja impose plus haut), gerant. Titre/prix restent modifiables
+  // mais optionnels ici - voir handleConfirm pour leur valeur par defaut.
   const nouveauBienValide =
     nouveauBien.moughataa.trim() &&
     nouveauBien.adresse.trim() &&
     nouveauBien.superficieM2 &&
     nouveauBien.longueurM &&
-    nouveauBien.largeurM;
+    nouveauBien.largeurM &&
+    gestionnaireIds.length > 0;
 
   function handleConfirm() {
     const numero = numeroLot.trim();
@@ -744,6 +774,7 @@ function PendingLotForm({ onConfirm, onCancel, onIgnore, quartierId, initialNume
         // Biens si besoin) - le prix=0 ne s'affiche plus cote client.
         prix: prix || 0,
         adresse_complete: nouveauBien.adresse.trim(),
+        gestionnaires_ids: gestionnaireIds.map(Number),
         detail_terrain: {
           superficie_m2: nouveauBien.superficieM2,
           longueur_m: nouveauBien.longueurM,
@@ -871,6 +902,25 @@ function PendingLotForm({ onConfirm, onCancel, onIgnore, quartierId, initialNume
               <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldLargeur")} *</span>
               <input type="number" min="0" value={nouveauBien.largeurM} onChange={(e) => setNouveauBienField("largeurM", e.target.value)} />
             </label>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+            <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldGestionnaire")} *</span>
+            {gestionnaires.length === 0 ? (
+              <small className="field-help">{t("bienForm.fieldGestionnairesEmpty")}</small>
+            ) : (
+              <div className="checkbox-grid">
+                {gestionnaires.map((u) => (
+                  <label key={u.id} className="field-inline checkbox-chip">
+                    <input
+                      type="checkbox"
+                      checked={gestionnaireIds.includes(String(u.id))}
+                      onChange={() => toggleGestionnaire(u.id)}
+                    />
+                    <span>{nomGestionnaire(u)}</span>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
 
           <hr style={{ border: "none", borderTop: "1px solid #e5e7eb", margin: "0.25rem 0" }} />
