@@ -288,7 +288,7 @@
     "fieldMoughataa": "Moughataa",
     "fieldAdresse": "Adresse (emplacement)",
     "titrePlaceholder": "Terrain lot {{numero}}",
-    "optionalFieldsHelp": "Les champs ci-dessous sont optionnels : vous pouvez les completer plus tard depuis la page Biens. Sans titre ni prix, le bien est cree desactive (non visible cote client).",
+    "optionalFieldsHelp": "Les champs ci-dessous sont optionnels : vous pouvez les completer plus tard depuis la page Biens. Le bien est actif des sa creation.",
     "fieldTitreFoncier": "Titre foncier",
     "fieldBorne": "Terrain borne",
     "ignoreLot": "Ignorer",

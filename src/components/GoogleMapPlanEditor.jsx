@@ -739,6 +739,9 @@ function PendingLotForm({ onConfirm, onCancel, onIgnore, quartierId, initialNume
         titre: titre || t("plansQuartier.titrePlaceholder", { numero }),
         type_transaction: "vente",
         unite_prix: "forfait",
+        // Titre/prix pas encore renseignes : on cree quand meme le bien,
+        // actif des la creation (a completer plus tard depuis la page
+        // Biens si besoin) - le prix=0 ne s'affiche plus cote client.
         prix: prix || 0,
         adresse_complete: nouveauBien.adresse.trim(),
         detail_terrain: {
@@ -750,12 +753,6 @@ function PendingLotForm({ onConfirm, onCancel, onIgnore, quartierId, initialNume
           borne: nouveauBien.borne,
         },
       };
-      // Titre/prix pas encore renseignes : on cree quand meme le bien (a
-      // completer plus tard depuis la page Biens), mais desactive pour ne
-      // pas l'afficher cote client avec un prix/titre provisoire.
-      if (!titre || !prix) {
-        bienData.actif = false;
-      }
       onConfirm({ numeroLot: numero, bienData });
     }
   }
