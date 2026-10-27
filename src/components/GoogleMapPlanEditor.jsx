@@ -547,6 +547,10 @@ function ZoneInfoForm({ zone, onSave, onPublish, onCancel }) {
   const [superficieM2, setSuperficieM2] = useState(zone.superficie_m2 ?? "");
   const [longueurM, setLongueurM] = useState(zone.longueur_m ?? "");
   const [largeurM, setLargeurM] = useState(zone.largeur_m ?? "");
+  const [baseM, setBaseM] = useState(zone.base_m ?? "");
+  const [hauteurM, setHauteurM] = useState(zone.hauteur_m ?? "");
+  const [hypotenuseM, setHypotenuseM] = useState(zone.hypotenuse_m ?? "");
+  const [diagonaleM, setDiagonaleM] = useState(zone.diagonale_m ?? "");
   const [prix, setPrix] = useState("");
 
   function champsActuels() {
@@ -558,6 +562,10 @@ function ZoneInfoForm({ zone, onSave, onPublish, onCancel }) {
       superficie_m2: superficieM2 === "" ? null : superficieM2,
       longueur_m: longueurM === "" ? null : longueurM,
       largeur_m: largeurM === "" ? null : largeurM,
+      base_m: baseM === "" ? null : baseM,
+      hauteur_m: hauteurM === "" ? null : hauteurM,
+      hypotenuse_m: hypotenuseM === "" ? null : hypotenuseM,
+      diagonale_m: diagonaleM === "" ? null : diagonaleM,
     };
   }
 
@@ -621,6 +629,29 @@ function ZoneInfoForm({ zone, onSave, onPublish, onCancel }) {
           <input type="number" min="0" value={largeurM} onChange={(e) => setLargeurM(e.target.value)} />
         </label>
       </div>
+      <p className="muted" style={{ fontSize: "0.72rem", margin: "0 0 0.5rem" }}>
+        {t("plansQuartier.nonRectangularHelp")}
+      </p>
+      <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.5rem" }}>
+        <label style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
+          <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldBase")}</span>
+          <input type="number" min="0" value={baseM} onChange={(e) => setBaseM(e.target.value)} />
+        </label>
+        <label style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
+          <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldHauteur")}</span>
+          <input type="number" min="0" value={hauteurM} onChange={(e) => setHauteurM(e.target.value)} />
+        </label>
+      </div>
+      <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.5rem" }}>
+        <label style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
+          <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldHypotenuse")}</span>
+          <input type="number" min="0" value={hypotenuseM} onChange={(e) => setHypotenuseM(e.target.value)} />
+        </label>
+        <label style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
+          <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldDiagonale")}</span>
+          <input type="number" min="0" value={diagonaleM} onChange={(e) => setDiagonaleM(e.target.value)} />
+        </label>
+      </div>
       <label style={{ display: "flex", flexDirection: "column", gap: "0.25rem", marginBottom: "0.75rem" }}>
         <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldZoneDescription")}</span>
         <textarea
@@ -680,6 +711,10 @@ function PendingLotForm({ onConfirm, onCancel, onIgnore, quartierId, initialNume
     superficieM2: "",
     longueurM: "",
     largeurM: "",
+    baseM: "",
+    hauteurM: "",
+    hypotenuseM: "",
+    diagonaleM: "",
     moughataa: "",
     titreFoncier: "",
     borne: false,
@@ -777,8 +812,12 @@ function PendingLotForm({ onConfirm, onCancel, onIgnore, quartierId, initialNume
         gestionnaires_ids: gestionnaireIds.map(Number),
         detail_terrain: {
           superficie_m2: nouveauBien.superficieM2,
-          longueur_m: nouveauBien.longueurM,
-          largeur_m: nouveauBien.largeurM,
+          longueur_m: nouveauBien.longueurM || null,
+          largeur_m: nouveauBien.largeurM || null,
+          base_m: nouveauBien.baseM || null,
+          hauteur_m: nouveauBien.hauteurM || null,
+          hypotenuse_m: nouveauBien.hypotenuseM || null,
+          diagonale_m: nouveauBien.diagonaleM || null,
           moughataa: nouveauBien.moughataa.trim(),
           titre_foncier: nouveauBien.titreFoncier,
           borne: nouveauBien.borne,
@@ -901,6 +940,29 @@ function PendingLotForm({ onConfirm, onCancel, onIgnore, quartierId, initialNume
             <label style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
               <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldLargeur")} *</span>
               <input type="number" min="0" value={nouveauBien.largeurM} onChange={(e) => setNouveauBienField("largeurM", e.target.value)} />
+            </label>
+          </div>
+          <p className="muted" style={{ fontSize: "0.72rem", margin: 0 }}>
+            {t("plansQuartier.nonRectangularHelp")}
+          </p>
+          <div style={{ display: "flex", gap: "0.5rem" }}>
+            <label style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
+              <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldBase")}</span>
+              <input type="number" min="0" value={nouveauBien.baseM} onChange={(e) => setNouveauBienField("baseM", e.target.value)} />
+            </label>
+            <label style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
+              <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldHauteur")}</span>
+              <input type="number" min="0" value={nouveauBien.hauteurM} onChange={(e) => setNouveauBienField("hauteurM", e.target.value)} />
+            </label>
+          </div>
+          <div style={{ display: "flex", gap: "0.5rem" }}>
+            <label style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
+              <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldHypotenuse")}</span>
+              <input type="number" min="0" value={nouveauBien.hypotenuseM} onChange={(e) => setNouveauBienField("hypotenuseM", e.target.value)} />
+            </label>
+            <label style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
+              <span style={{ fontSize: "0.8rem" }}>{t("plansQuartier.fieldDiagonale")}</span>
+              <input type="number" min="0" value={nouveauBien.diagonaleM} onChange={(e) => setNouveauBienField("diagonaleM", e.target.value)} />
             </label>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>

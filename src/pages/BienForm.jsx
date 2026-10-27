@@ -87,7 +87,11 @@ function emptyState() {
     equipements_ids: [],
     gestionnaires_ids: [],
     detail_ceremonie: { avec_service: false, description_service: "", description_service_ar: "", capacite_personnes: "" },
-    detail_terrain: { superficie_m2: "", longueur_m: "", largeur_m: "", titre_foncier: "", borne: false, moughataa: "" },
+    detail_terrain: {
+      superficie_m2: "", longueur_m: "", largeur_m: "",
+      base_m: "", hauteur_m: "", hypotenuse_m: "", diagonale_m: "",
+      titre_foncier: "", borne: false, moughataa: "",
+    },
     actif: true,
     vendu: false,
   };
@@ -127,6 +131,10 @@ export function stateFromBien(bien) {
       superficie_m2: bien.detail_terrain?.superficie_m2 ?? "",
       longueur_m: bien.detail_terrain?.longueur_m ?? "",
       largeur_m: bien.detail_terrain?.largeur_m ?? "",
+      base_m: bien.detail_terrain?.base_m ?? "",
+      hauteur_m: bien.detail_terrain?.hauteur_m ?? "",
+      hypotenuse_m: bien.detail_terrain?.hypotenuse_m ?? "",
+      diagonale_m: bien.detail_terrain?.diagonale_m ?? "",
       titre_foncier: bien.detail_terrain?.titre_foncier ?? "",
       borne: Boolean(bien.detail_terrain?.borne),
       moughataa: bien.detail_terrain?.moughataa ?? "",
@@ -182,6 +190,10 @@ export function buildBienPayload(values) {
         values.detail_terrain.superficie_m2 === "" ? null : Number(values.detail_terrain.superficie_m2),
       longueur_m: values.detail_terrain.longueur_m === "" ? null : Number(values.detail_terrain.longueur_m),
       largeur_m: values.detail_terrain.largeur_m === "" ? null : Number(values.detail_terrain.largeur_m),
+      base_m: values.detail_terrain.base_m === "" ? null : Number(values.detail_terrain.base_m),
+      hauteur_m: values.detail_terrain.hauteur_m === "" ? null : Number(values.detail_terrain.hauteur_m),
+      hypotenuse_m: values.detail_terrain.hypotenuse_m === "" ? null : Number(values.detail_terrain.hypotenuse_m),
+      diagonale_m: values.detail_terrain.diagonale_m === "" ? null : Number(values.detail_terrain.diagonale_m),
       titre_foncier: values.detail_terrain.titre_foncier,
       borne: Boolean(values.detail_terrain.borne),
       moughataa: values.detail_terrain.moughataa,
@@ -665,6 +677,53 @@ export default function BienForm({ initial, villes, quartiers, equipements, util
                 step="0.01"
                 value={values.detail_terrain.largeur_m}
                 onChange={(e) => setDetail("detail_terrain", "largeur_m", e.target.value)}
+              />
+            </label>
+          </div>
+          <p className="muted" style={{ fontSize: "0.8rem", marginTop: "-0.25rem" }}>
+            {t("bienForm.nonRectangularHelp")}
+          </p>
+          <div className="field-row">
+            <label className="field">
+              <span>{t("bienForm.base")}</span>
+              <IconInput
+                icon={Ruler}
+                type="number"
+                step="0.01"
+                value={values.detail_terrain.base_m}
+                onChange={(e) => setDetail("detail_terrain", "base_m", e.target.value)}
+              />
+            </label>
+            <label className="field">
+              <span>{t("bienForm.hauteur")}</span>
+              <IconInput
+                icon={Ruler}
+                type="number"
+                step="0.01"
+                value={values.detail_terrain.hauteur_m}
+                onChange={(e) => setDetail("detail_terrain", "hauteur_m", e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="field-row">
+            <label className="field">
+              <span>{t("bienForm.hypotenuse")}</span>
+              <IconInput
+                icon={Ruler}
+                type="number"
+                step="0.01"
+                value={values.detail_terrain.hypotenuse_m}
+                onChange={(e) => setDetail("detail_terrain", "hypotenuse_m", e.target.value)}
+              />
+            </label>
+            <label className="field">
+              <span>{t("bienForm.diagonale")}</span>
+              <IconInput
+                icon={Ruler}
+                type="number"
+                step="0.01"
+                value={values.detail_terrain.diagonale_m}
+                onChange={(e) => setDetail("detail_terrain", "diagonale_m", e.target.value)}
               />
             </label>
           </div>

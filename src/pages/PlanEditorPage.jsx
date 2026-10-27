@@ -195,6 +195,10 @@ export default function PlanEditorPage() {
           superficie_m2: fields.superficie_m2,
           longueur_m: fields.longueur_m,
           largeur_m: fields.largeur_m,
+          base_m: fields.base_m,
+          hauteur_m: fields.hauteur_m,
+          hypotenuse_m: fields.hypotenuse_m,
+          diagonale_m: fields.diagonale_m,
           moughataa: fields.moughataa,
         },
       });
